@@ -69,9 +69,12 @@ function initializeDatabase() {
           function generateVerificationNumber(regNo) {
             const secret = process.env.SECRET_SALT;
             if (!secret) {
-              console.warn('WARNING: SECRET_SALT not set in environment variables. Using default for development.');
-              const defaultSecret = 'development-only-secret-key';
-              const hash = crypto.createHmac('sha256', defaultSecret)
+              console.error('CRITICAL: SECRET_SALT environment variable not set!');
+              console.error('Please set SECRET_SALT in your hosting platform environment variables.');
+              console.error('Application cannot generate secure verification numbers without this.');
+              // Use a temporary key that makes it obvious this is not production-ready
+              const tempSecret = 'INSECURE-TEMP-KEY-SET-SECRET_SALT-ENV-VAR';
+              const hash = crypto.createHmac('sha256', tempSecret)
                                 .update(regNo.toString())
                                 .digest('hex');
               return hash.substring(0, 8).toUpperCase();

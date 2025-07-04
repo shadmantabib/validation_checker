@@ -31,17 +31,28 @@ A secure web application for validating registration numbers against verificatio
    npm install
    ```
 
-3. **Set up the database**
+3. **Set up environment variables**
+   ```bash
+   # Copy the example environment file
+   cp env.example .env
+   
+   # Generate a secure secret salt
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+   
+   # Edit .env file and replace SECRET_SALT with the generated value
+   ```
+
+4. **Set up the database**
    ```bash
    npm run setup-db
    ```
 
-4. **Start the server**
+5. **Start the server**
    ```bash
    npm start
    ```
 
-5. **Open your browser**
+6. **Open your browser**
    Navigate to `http://localhost:3000`
 
 ## Database Setup
@@ -109,12 +120,22 @@ Health check endpoint.
 
 ## Security Features
 
-1. **Rate Limiting**: 100 requests per 15 minutes per IP
-2. **Input Sanitization**: All inputs are sanitized before database queries
-3. **CORS Protection**: Configurable CORS settings
-4. **SQL Injection Prevention**: Parameterized queries
-5. **Security Headers**: Helmet.js for security headers
-6. **Hash-based Verification**: HMAC-SHA256 for verification numbers
+1. **Environment Variables**: All sensitive data stored in environment variables
+2. **Hash-based Verification**: HMAC-SHA256 for secure verification numbers
+3. **Rate Limiting**: 100 requests per 15 minutes per IP
+4. **Input Sanitization**: All inputs are sanitized before database queries
+5. **CORS Protection**: Configurable CORS settings
+6. **SQL Injection Prevention**: Parameterized queries
+7. **Security Headers**: Helmet.js for security headers
+
+## ⚠️ Security Requirements
+
+**CRITICAL**: This application requires a `SECRET_SALT` environment variable to function securely.
+
+- **Never commit** your `.env` file to version control
+- **Always set** `SECRET_SALT` in your hosting platform's environment variables
+- **Use a unique salt** for each environment (development, staging, production)
+- **Generate secure salts** using cryptographically secure random generators
 
 ## Deployment
 
@@ -127,22 +148,26 @@ npm run dev  # Uses nodemon for auto-restart
 ### Production Deployment
 
 1. **Environment Variables**
-   Set these environment variables in production:
+   Set these environment variables in your hosting platform:
    ```
-   PORT=3000
+   SECRET_SALT=your-64-character-random-hex-string
    NODE_ENV=production
-   SECRET_SALT=your-very-secure-secret-salt
+   PORT=3000
+   ```
+   
+   **Generate SECRET_SALT using:**
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
    ```
 
 2. **Database Setup**
-   ```bash
-   npm run setup-db
-   ```
+   The application automatically sets up the database on first run.
 
-3. **Start Production Server**
-   ```bash
-   npm start
-   ```
+3. **Deploy**
+   Push your code to your hosting platform. The application will:
+   - Install dependencies automatically
+   - Create the database on first startup
+   - Start the server
 
 ### Deployment Platforms
 

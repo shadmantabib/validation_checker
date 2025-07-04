@@ -20,9 +20,16 @@ db.serialize(() => {
   // Function to generate verification number (hash-based)
   function generateVerificationNumber(regNo) {
     // Create a hash using registration number + a secret salt
-    const secret = process.env.SECRET_SALT || 'development-only-secret-key';
-    if (!process.env.SECRET_SALT) {
-      console.warn('WARNING: SECRET_SALT not set. Using development key for local setup.');
+    const secret = process.env.SECRET_SALT;
+    if (!secret) {
+      console.warn('WARNING: SECRET_SALT environment variable not set!');
+      console.warn('Please set SECRET_SALT in your .env file or hosting platform.');
+      // Use a temporary development key with warning
+      const tempSecret = 'TEMP-DEV-KEY-NOT-FOR-PRODUCTION';
+      const hash = crypto.createHmac('sha256', tempSecret)
+                        .update(regNo.toString())
+                        .digest('hex');
+      return hash.substring(0, 8).toUpperCase();
     }
     
     const hash = crypto.createHmac('sha256', secret)
