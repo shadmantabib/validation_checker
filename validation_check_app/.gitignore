@@ -101,5 +101,9 @@ ehthumbs.db
 Thumbs.db
 
 # Temporary files
-view-database.js 
+view-database.js
+
+# Documentation files (if you don't want them in repo)
+# DEPLOYMENT.md
+# SECURITY.md 
 DEPLOYMENT.md
