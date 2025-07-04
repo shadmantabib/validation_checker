@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Validation System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <h1>🔍 Registration Validator</h1>
+                <p>Verify your registration details</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="validation-card">
+                <h2>Validate Registration</h2>
+                <p class="subtitle">Enter your registration number and verification code to validate your registration</p>
+                
+                <form id="validationForm" class="validation-form">
+                    <div class="form-group">
+                        <label for="regNo">Registration Number</label>
+                        <input 
+                            type="text" 
+                            id="regNo" 
+                            name="regNo" 
+                            placeholder="Enter your registration number"
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="verificationNo">Verification Number</label>
+                        <input 
+                            type="text" 
+                            id="verificationNo" 
+                            name="verificationNo" 
+                            placeholder="Enter your verification number"
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                    
+                    <button type="submit" class="validate-btn" id="validateBtn">
+                        <span class="btn-text">Validate Registration</span>
+                        <span class="btn-spinner" id="spinner"></span>
+                    </button>
+                </form>
+
+                <div id="result" class="result-container"></div>
+            </div>
+
+            <div class="info-section">
+                <h3>How to Use</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-icon">📝</div>
+                        <h4>Step 1</h4>
+                        <p>Enter your registration number as provided during registration</p>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">🔑</div>
+                        <h4>Step 2</h4>
+                        <p>Enter the verification number you received</p>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">✅</div>
+                        <h4>Step 3</h4>
+                        <p>Click validate to verify your registration details</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 Registration Validation System. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
